@@ -226,7 +226,7 @@ class ProductOrder(LoginRequiredMixin, SingleObjectMixin, FormView):
     model = Product
     form_class = OrderProductForm
 
-    def get_success_url(self):
+    def get_success_re_path(self):
         return reverse(
             "finish_order",
             kwargs={'pk': get_or_create_order(self.request.user).pk}

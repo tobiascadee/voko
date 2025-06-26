@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 import accounts.urls
 import docs.urls
 import transport.urls
@@ -16,27 +16,28 @@ import news.urls
 from vokou.views import HomeView, PrivacyStatementView, RegulationsView
 
 urlpatterns = [
-    url(r'^admin/mailing/', include(mailing.urls)),
-    path('admin/', admin.site.urls),
-    url(r'^accounts/', include(accounts.urls)),
-    url(r'^ordering/admin/', include(ordering.admin_urls)),
-    url(r'^ordering/', include(ordering.urls)),
-    url(r'^finance/', include(finance.urls)),
-    url(r'^docs/', include(docs.urls)),
-    url(r'^transport/', include(transport.urls)),
-    url(r'^groups/', include(groups.urls)),
-    url(r'^news/', include(news.urls)),
-    url(r'^api/', include(api.urls)),
-    url(r'^distribution/', include(distribution.urls)),
-    url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^hijack/', include('hijack.urls')),
-    url(r'^regulations/', RegulationsView.as_view(), name="regulations"),
-    url(r'^privacy/', PrivacyStatementView.as_view(), name="privacy"),
-    url(r'^$', HomeView.as_view(), name="home"),
+    re_path(r"^admin/mailing/", include(mailing.urls)),
+    path("admin/", admin.site.urls),
+    re_path(r"^accounts/", include(accounts.urls)),
+    re_path(r"^ordering/admin/", include(ordering.admin_urls)),
+    re_path(r"^ordering/", include(ordering.urls)),
+    re_path(r"^finance/", include(finance.urls)),
+    re_path(r"^docs/", include(docs.urls)),
+    re_path(r"^transport/", include(transport.urls)),
+    re_path(r"^groups/", include(groups.urls)),
+    re_path(r"^news/", include(news.urls)),
+    re_path(r"^api/", include(api.urls)),
+    re_path(r"^distribution/", include(distribution.urls)),
+    re_path(r"^tinymce/", include("tinymce.urls")),
+    re_path(r"^hijack/", include("hijack.urls")),
+    re_path(r"^regulations/", RegulationsView.as_view(), name="regulations"),
+    re_path(r"^privacy/", PrivacyStatementView.as_view(), name="privacy"),
+    re_path(r"^$", HomeView.as_view(), name="home"),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        re_path(r"^__debug__/", include(debug_toolbar.urls)),
     ]

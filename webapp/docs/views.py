@@ -29,7 +29,7 @@ class DocumentDownload(LoginRequiredMixin, DetailView):
                 raise PermissionDenied
             else:
                 return redirect_to_login(request.get_full_path(),
-                                         self.get_login_url(),
+                                         self.get_login_re_path(),
                                          self.get_redirect_field_name())
 
         doc = self.get_object()

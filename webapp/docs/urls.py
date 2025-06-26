@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path
 from .views import DocumentOverview, DocumentDownload
 
 urlpatterns = (
-    url(r'^download/(?P<slug>[a-z0-9\-]+)/$',
+    re_path(r'^download/(?P<slug>[a-z0-9\-]+)/$',
         DocumentDownload.as_view(),
         name="docs.document_download"),
-    url(r'^', DocumentOverview.as_view(),
+    re_path(r'^', DocumentOverview.as_view(),
         name="docs.document_overview"),
 )

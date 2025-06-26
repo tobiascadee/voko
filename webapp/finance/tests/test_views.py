@@ -83,7 +83,7 @@ class TestCreateTransaction(FinanceTestCase):
         self.assertEqual(payment.mollie_id, "transaction_id")
         self.assertEqual(payment.balance, None)
 
-    def test_that_user_is_redirected_to_bank_url(self):
+    def test_that_user_is_redirected_to_bank_re_path(self):
         ret = self.client.post(self.url, {'bank': "EXAMPLE_BANK", })
         self.assertEqual(ret.status_code, 302)
         self.assertEqual(ret.url, "http://bank.url")
